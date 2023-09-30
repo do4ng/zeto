@@ -4,6 +4,8 @@ import { render } from '../../packages/zeto/src/render';
 
 const [count, setCount] = state(0);
 
+const style = 'color: green';
+
 const counter = html` <button
     onClick=${() => {
       setCount(count.value + 1);
@@ -20,7 +22,7 @@ const counter = html` <button
   </button>`;
 
 const element = html`
-  <h1>${'Count'}: <span style="color: green">${count}</span></h1>
+  <h1>${'Count'}: <span style=${style} id=${count}>${count}</span></h1>
 
   ${counter}
 `;

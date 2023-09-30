@@ -1,5 +1,7 @@
+import { isJSON } from '$zeto/lib/isJson';
 import { parse } from '../parser';
 import { State } from '../state';
+import { Symbols } from '../symbols';
 import { ZetoElement, ZetoFragment, createFragment } from './dom';
 
 // eslint-disable-next-line no-unused-vars
@@ -22,14 +24,23 @@ export function compile(code: string, data: any[]): ZetoFragment {
 
         if (typeof value === 'string') {
           attributes[key] = value;
-        } else if (key === '__combine_data') {
+        } else if (key === '__ref_data') {
+          const inserting = data[Number(value[0].value.slice(1, -1))];
+
+          if (!isJSON(JSON.stringify(inserting), false)) {
+            throw new Error('<... {data}> type must be JSON (not array)');
+          }
+
           attributes = {
             ...attributes,
-            ...value,
+            ...inserting,
           };
         } else {
           attributes[key] =
             data[Number((value as unknown as State<any>).value.slice(1, -1))];
+          if (typeof attributes[key] === 'object' && attributes[key].$$[Symbols.state]) {
+            throw new Error('attribute value cannot be state');
+          }
         }
       });
 
