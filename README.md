@@ -20,7 +20,7 @@ render(target, element);
 ## State
 
 ```ts
-import { html, state } from 'my-framework';
+import { html, state } from 'zeto';
 
 const [count, setCount] = state(0);
 
