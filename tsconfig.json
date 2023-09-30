@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es2015",
+
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "checkJs": true,
+    "lib": ["ESNext", "DOM"],
+
+    "types": ["node"],
+
+    "baseUrl": ".",
+    "paths": {
+      "$*": ["./packages/*"]
+    }
+  },
+
+  "exclude": ["**/node_modules/**", "**/dist/**", "asto.*.js"]
+}
